@@ -1,5 +1,6 @@
 const express = require('express');
-const { dbConecction } = require('./database/config');
+const { dbConection } = require('./database/config');
+const cors = require('cors');
 require('dotenv').config();
 // console.log(process.env);
 
@@ -7,7 +8,10 @@ require('dotenv').config();
 const app = express();
 
 // Base de datos
-dbConecction();
+dbConection();
+
+// CORS
+app.use(cors());
 
 // Directorio público
 app.use(express.static('public'));
@@ -18,7 +22,9 @@ app.use(express.json());
 // Rutas
 // TODO: auth // crear, login, renew
 app.use('/api/auth', require('./routes/auth'));
+
 // TODO CRUD: Eventos
+app.use('/api/events', require('./routes/events'));
 
 // Escuchar peticiones
 app.listen(process.env.PORT, () => {
