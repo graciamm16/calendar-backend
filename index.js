@@ -28,7 +28,7 @@ app.use('/api/auth', require('./routes/auth'));
 app.use('/api/events', require('./routes/events'));
 
 // Cualquier solicitud que no coincida con una ruta específica, recibirá el archivo index.html
-app.use('*', (req, res) => {
+app.get('/*path', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/index.html'));
 });
 
