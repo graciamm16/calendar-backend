@@ -1,6 +1,7 @@
 const express = require('express');
 const { dbConection } = require('./database/config');
 const cors = require('cors');
+const path = require('path');
 require('dotenv').config();
 // console.log(process.env);
 
@@ -25,6 +26,11 @@ app.use('/api/auth', require('./routes/auth'));
 
 // TODO CRUD: Eventos
 app.use('/api/events', require('./routes/events'));
+
+// Cualquier solicitud que no coincida con una ruta específica, recibirá el archivo index.html
+app.use('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/index.html'));
+});
 
 // Escuchar peticiones
 app.listen(process.env.PORT, () => {
